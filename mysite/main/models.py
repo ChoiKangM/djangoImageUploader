@@ -5,6 +5,7 @@ from django.db import models
 class Post(models.Model):
     postname = models.CharField(max_length=50)
     contents = models.TextField()
+    mainphoto = models.ImageField(blank=True, null=True)
     
     # 게시글의 제목(postname)이 Post object 대신하기
     def __str__(self):
