@@ -65,27 +65,26 @@ class Post(models.Model):
 `Pillow`를 사용하며 아래와 같이 설치할 수 있습니다.  
 
 ```console
-(myvenv) root@goorm:/workspace/django/mysite# pip install pillow==2.9.0
+(myvenv) root@goorm:/workspace/django/mysite# pip3 install pillow==2.9.0
 ```
 ```console
-(myvenv) root@goorm:/workspace/django/mysite# python manage.py makemigrations
+(myvenv) root@goorm:/workspace/django/mysite# python3 manage.py makemigrations
 ```
 ```console
-(myvenv) root@goorm:/workspace/django/mysite# python manage.py migrate
+(myvenv) root@goorm:/workspace/django/mysite# python3 manage.py migrate
 ```
 ```console
-(myvenv) root@goorm:/workspace/django/mysite# python manage.py runserver 0:80
+(myvenv) root@goorm:/workspace/django/mysite# python3 manage.py runserver 0:80
 ```
-![pillow_install](img/pillow_install.png)  
-![img_migration](img/img_migration.png)  
-![runserver_withimg](img/runserver_withimg.png)  
+![pillow_install](img/pip3Pillow.png)  
+![img_migration](img/makemigration_migrate.png)  
 
 `pillow` 라이브러리 설치 완료
 
 ##### change post
-![change_post_with_img](img/change_post_with_img.png)
+![change_post_with_img](https://github.com/kei01138/djangoProject/raw/master/img/change_post_with_img.png)
 ##### add post
-![add_post_with_img](img/add_post_with_img.png)
+![add_post_with_img](https://github.com/kei01138/djangoProject/raw/master/img/add_post_with_img.png)
 
 #### 사진이 저장될 공간 설정
 ##### `mysite/tutorialdjango/settings.py`
