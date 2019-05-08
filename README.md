@@ -90,18 +90,18 @@ class Post(models.Model):
 ##### `mysite/tutorialdjango/settings.py`
 `setting.py`파일 제일 아래에 추가합니다
 ```python
-126 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-127 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 ```
 
 파일이 저장되는 공간을 추가했지만 아직 `django`가 파일 경로를 찾지 못합니다  
 이를 확인해봅니다
 
 게시글 세부페이지에서 확인합니다  
-![img_url](img/img_url.png)   
+![img_url](https://github.com/kei01138/djangoProject/raw/master/img/img_url.png)   
 
 이렇게 에러가 납니다  
-![img_url_error](img/img_url_error.png)  
+![img_url_error](https://github.com/kei01138/djangoProject/raw/master/img/img_url_error.png)  
 
 이미지의 경로를 설정해 가져옵시다
 
@@ -110,51 +110,52 @@ class Post(models.Model):
 ```python
 from django.contrib import admin
 from django.urls import path
-# index, blog, postdetails 페이지 추가
-from main.views import index, blog, postdetails
-# 사진을 static으로 생각하고 settings에 설정한 경로를 가져옵니다
+# index는 대문, blog는 게시판
+from main.views import index, blog, posting
+
+# 이미지를 업로드하자
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # url로 접속 후 첫 화면은 index.html
-    path('', index),
-    # localhost:80/blog 접속하면 blog 페이지
-    path('blog/', blog),
-    # localhost:80/blog/게시글넘버 게시글 세부페이지
-    path('blog/<int:pk>/', postdetails),
+    # 웹사이트의 첫화면은 index 페이지이다 + URL이름은 index이다
+    path('', index, name='index'),
+    # URL:80/blog에 접속하면 blog 페이지 + URL이름은 blog이다
+    path('blog/', blog, name='blog'),
+    # URL:80/blog/숫자로 접속하면 게시글-세부페이지(posting)
+    path('blog/<int:pk>/', posting, name='posting'),
 ]
 
-# 이미지 url 설정
+# 이미지 URL 설정
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
 이제 업로드한 사진이 뜹니다  
-![img_url_ex](img/img_url_ex.png)
+![img_url_ex](https://github.com/kei01138/djangoProject/raw/master/img/img_url_ex.png)
 
 ##### `mysite/main/templates/main/postdetails.html`
 게시글마다 이미지를 보여줍니다
 ```html
 <html>
-<head>
-    <title>Django Tutorials!</title>
-</head>
-<body>
-    <h1>Postdetails Page!</h1>
-    <p>{{postlist.postname}}</p>
-    <p>{{postlist.contents|linebreaks}}</p>
-    <!-- 이미지 보여주기 -->
-    {% if postlist.mainphoto%}
-        <img src="{{ postlist.mainphoto.url }}" alt="">
-    {% endif %}
-    <!--https://django-3-nniqi.run.goorm.io 를 자신의 url로 수정하기 -->
-    <a href="https://django-3-nniqi.run.goorm.io/blog/">목록</a>
-</body>
+    <head>
+        <title>Posting!</title>
+    </head>
+    <body>
+        <h1>게시글 개별 페이지입니다</h1>
+        <p>{{post.postname}}</p>
+        <p>{{post.contents}}</p>
+        <!-- 이미지 보여주기 -->
+        {% if post.mainphoto %}
+            <img src = "{{ post.mainphoto.url }}" alt="" height="600">
+            <br>
+        {% endif %}
+        <a href="https://자기URL넣자/blog/">blog</a>
+    </body>
 </html>
 ```
 이미지가 뜬 걸 확인합니다  
-![postdetails_with_img](img/postdetails_with_img.png)   
+![postdetails_with_img](https://github.com/kei01138/djangoProject/raw/master/img/postdetails_with_img.png)   
 
 고생 많으셨습니다
 
